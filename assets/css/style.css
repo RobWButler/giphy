@@ -1,3 +1,8 @@
 body {
     background-color:rgb(38, 37, 49);
 }
+
+p {
+    color:white;
+    font-weight:bold;
+}
