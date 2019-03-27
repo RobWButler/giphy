@@ -1,6 +1,27 @@
 var animalList = ["Dog", "Cat", "Parrot", "Ferret", "Owl", "Otter"];
 console.log(animalList)
 
+
+function animateGIF(){
+  var state = $(this).attr("data-state")
+  var animatedImage = $(this).attr("data-animate")
+  var stillImage = $(this).attr("data-still")
+  console.log(state)
+
+  if (state === "still") {
+    $(this).attr("src", animatedImage)
+    $(this).attr("data-state", "animate")
+
+  }
+
+  else {
+    $(this).attr("src", stillImage)
+    $(this).attr("data-state", "still")
+
+  }
+}
+
+
 function renderButtons() {
 
   $("#buttons-view").empty();
@@ -60,6 +81,9 @@ console.log(queryURL);
           var animalImage = $("<img>");
 
           animalImage.attr("src", item.images.fixed_height_still.url);
+          animalImage.attr("data-still", item.images.fixed_height_still.url)
+          animalImage.attr("data-animate", item.images.fixed_height.url)
+          animalImage.attr("data-state", "still")
           animalImage.addClass("pic img-fluid");
           animalDiv.append(animalImage);
           animalDiv.append(p);
@@ -72,3 +96,6 @@ console.log(queryURL);
 
 renderButtons();
 $(document).on("click", ".animal-btn", showAnimalGIFs);
+$(document).on("click", ".pic", animateGIF);
+
+
