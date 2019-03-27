@@ -7,7 +7,7 @@ function renderButtons() {
   for (var i = 0; i < animalList.length; i++) {
 
     var a = $("<button>");
-    a.addClass("animal-btn btn btn-secondary");
+    a.addClass("animal-btn btn btn-secondary mr-1");
     a.attr("data-name", animalList[i]);
     a.text(animalList[i]);
     $("#buttons-view").append(a);
@@ -20,7 +20,7 @@ $("#search").on("click", function(event) {
 
   animalList.push(animal);
 
-  $(document).one("click", ".animal-btn", showAnimalGIFs);
+  $(document).on("click", ".animal-btn", showAnimalGIFs);
 
   renderButtons();
 
