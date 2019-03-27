@@ -3,6 +3,9 @@ body {
 }
 
 p {
-    color:white;
     font-weight:bold;
+}
+
+h1{
+    color:white;
 }

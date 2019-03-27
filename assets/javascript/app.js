@@ -7,7 +7,7 @@ function renderButtons() {
   for (var i = 0; i < animalList.length; i++) {
 
     var a = $("<button>");
-    a.addClass("animal-btn");
+    a.addClass("animal-btn btn btn-secondary");
     a.attr("data-name", animalList[i]);
     a.text(animalList[i]);
     $("#buttons-view").append(a);
@@ -45,6 +45,7 @@ console.log(queryURL)
           var item = results[i];
           var animalDiv = $("<div>");
           var rate = item.rating.toUpperCase();
+          animalDiv.addClass("card float-left col-md-3 mx-1 mt-1 h-25")
 
           var p = $("<p>");
           p.text("Rating: " + rate);
@@ -52,10 +53,9 @@ console.log(queryURL)
           var animalImage = $("<img>");
 
           animalImage.attr("src", item.images.fixed_height_still.url);
-          animalImage.addClass("pic");
-
-          animalDiv.append(animalImage);
-          animalDiv.append(p);
+          animalImage.addClass("pic img-fluid")
+          animalDiv.append(animalImage)
+          animalDiv.append(p)
 
           $("#gifs-appear-here").prepend(animalDiv);
         }
