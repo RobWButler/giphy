@@ -1,4 +1,5 @@
 var animalList = [];
+console.log(animalList)
 
 function renderButtons() {
 
@@ -8,27 +9,32 @@ function renderButtons() {
 
     var a = $("<button>");
     a.addClass("animal-btn btn btn-secondary mr-1");
+    a.attr("id", animalList[i])
     a.attr("data-name", animalList[i]);
     a.text(animalList[i]);
     $("#buttons-view").append(a);
+    
   }
 };
 
-$("#search").on("click", function(event) {
+$("#search").on("click", function() {
   event.preventDefault();
   var animal = $(".form-control").val();
 
   animalList.push(animal);
 
-  $(document).on("click", ".animal-btn", showAnimalGIFs);
-
   renderButtons();
 
   $(".form-control").val("");
+
+  $(".animal-btn").on("click", showAnimalGIFs);
+
 });
 
 
 function showAnimalGIFs() {
+  console.log(animalList)
+
   var search = $(this).attr("data-name");
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
     search + "&api_key=dc6zaTOxFJmzC&limit=10";
