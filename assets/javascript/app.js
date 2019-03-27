@@ -12,7 +12,7 @@ function renderButtons() {
     a.text(animalList[i]);
     $("#buttons-view").append(a);
   }
-}
+};
 
 $("#search").on("click", function(event) {
   event.preventDefault();
@@ -20,10 +20,12 @@ $("#search").on("click", function(event) {
 
   animalList.push(animal);
 
-  $(document).on("click", ".animal-btn", showAnimalGIFs);
+  $(document).one("click", ".animal-btn", showAnimalGIFs);
 
   renderButtons();
-})
+
+  $(".form-control").val("");
+});
 
 
 function showAnimalGIFs() {
@@ -31,21 +33,21 @@ function showAnimalGIFs() {
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
     search + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-console.log(search)
-console.log(queryURL)
+console.log(search);
+console.log(queryURL);
 
   $.ajax({
         url: queryURL,
         method: "GET",
 
       }).then(function(response) {
-        var results = response.data
+        var results = response.data;
         for (var i = 0; i < results.length; i++) {
 
           var item = results[i];
           var animalDiv = $("<div>");
           var rate = item.rating.toUpperCase();
-          animalDiv.addClass("card float-left col-md-3 mx-1 mt-1 h-25")
+          animalDiv.addClass("card float-left col-md-3 mx-1 mt-1 h-25");
 
           var p = $("<p>");
           p.text("Rating: " + rate);
@@ -53,13 +55,13 @@ console.log(queryURL)
           var animalImage = $("<img>");
 
           animalImage.attr("src", item.images.fixed_height_still.url);
-          animalImage.addClass("pic img-fluid")
-          animalDiv.append(animalImage)
-          animalDiv.append(p)
+          animalImage.addClass("pic img-fluid");
+          animalDiv.append(animalImage);
+          animalDiv.append(p);
 
           $("#gifs-appear-here").prepend(animalDiv);
         }
-    })
+    });
   
-}
+};
 
