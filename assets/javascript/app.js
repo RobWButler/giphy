@@ -1,4 +1,4 @@
-var animalList = [];
+var animalList = ["Dog", "Cat", "Parrot", "Ferret", "Owl", "Otter"];
 console.log(animalList)
 
 function renderButtons() {
@@ -27,7 +27,6 @@ $("#search").on("click", function() {
 
   $(".form-control").val("");
 
-  $(".animal-btn").on("click", showAnimalGIFs);
 
 });
 
@@ -71,3 +70,5 @@ console.log(queryURL);
   
 };
 
+renderButtons();
+$(document).on("click", ".animal-btn", showAnimalGIFs);
