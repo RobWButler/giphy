@@ -1,4 +1,6 @@
 var animalList = ["Dog", "Cat", "Parrot", "Ferret", "Owl", "Otter"];
+var faveList = JSON.parse(localStorage.getItem("fave-list"));
+
 console.log(animalList)
 
 
@@ -78,6 +80,11 @@ console.log(queryURL);
           var p = $("<p>");
           p.text("Rating: " + rate);
 
+          var f = $("<a>");
+          f.text("Add to favorites")
+          f.addClass("text-primary")
+          f.addClass("favorite")
+
           var animalImage = $("<img>");
 
           animalImage.attr("src", item.images.fixed_height_still.url);
@@ -87,6 +94,7 @@ console.log(queryURL);
           animalImage.addClass("pic img-fluid");
           animalDiv.append(animalImage);
           animalDiv.append(p);
+          animalDiv.append(f);
 
           $("#gifs-appear-here").prepend(animalDiv);
         }
