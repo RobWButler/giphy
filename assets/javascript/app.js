@@ -1,4 +1,4 @@
-var animalList = ["Dog", "Cat", "Parrot", "Ferret", "Owl", "Otter"];
+var animalList = ["Mario", "Pokemon", "Zelda", "Minecraft", "Uncharted", "Fortnite"];
 var faveList = [];
 
 console.log(animalList)
