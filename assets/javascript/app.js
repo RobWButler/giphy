@@ -42,6 +42,7 @@ function renderFaves(){
           f.text("Remove from favorites")
           f.addClass("text-secondary")
           f.addClass("unfave")
+          f.attr("src", faveList[i].src)
 
           var animalImage = $("<img>");
 
@@ -96,7 +97,8 @@ function addtoFavorites() {
     datastill: $(this).attr("data-still"),
     dataanimate: $(this).attr("data-animate"),
     datastate: $(this).attr("data-still"),
-    rating: $(this).attr("data-rating")
+    rating: $(this).attr("data-rating"),
+    id: $(this).attr("id"),
   }
 
   faveList.push(fav)
@@ -105,12 +107,23 @@ function addtoFavorites() {
 
 }
 
+function unFave(){
+  var faveItem = $(this).attr('id');
+  console.log(faveItem)
+
+  $('#item-'+faveItem).remove();
+  faveList.splice(faveItem, 1)
+  localStorage.setItem("fave-list", JSON.stringify(faveList));
+
+}
+
+
 function showAnimalGIFs() {
   console.log(animalList)
 
   var search = $(this).attr("data-name");
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    search + "&api_key=dc6zaTOxFJmzC&limit=10";
+    search + "&api_key=eb89NnXfSJnzr8ROuXeBRPTmebkjJVFz&limit=10";
 
 console.log(search);
 console.log(queryURL);
@@ -127,6 +140,8 @@ console.log(queryURL);
           var animalDiv = $("<div>");
           var rate = item.rating.toUpperCase();
           animalDiv.addClass("card float-left col-md-3 mx-1 mt-1 h-25");
+          animalDiv.attr("id", "item-" + i)
+
 
           var p = $("<p>");
           p.text("Rating: " + rate);
@@ -140,6 +155,8 @@ console.log(queryURL);
           f.attr("data-animate", item.images.fixed_height.url)
           f.attr("data-state", "still")
           f.attr("data-rating", rate)
+          f.attr("id", "item-" + i)
+
 
           var animalImage = $("<img>");
 
@@ -163,5 +180,6 @@ renderButtons();
 $(document).on("click", ".animal-btn", showAnimalGIFs);
 $(document).on("click", ".pic", animateGIF);
 $(document).on("click", ".favorite", addtoFavorites);
+$(document).on("click", ".unfave", unFave);
 
 
