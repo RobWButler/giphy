@@ -1,5 +1,5 @@
 var animalList = ["Dog", "Cat", "Parrot", "Ferret", "Owl", "Otter"];
-var faveList = JSON.parse(localStorage.getItem("fave-list"));
+var faveList = [];
 
 console.log(animalList)
 
@@ -23,6 +23,42 @@ function animateGIF(){
   }
 }
 
+$("#fave-btn").on("click", function(){
+  renderFaves();
+})
+
+function renderFaves(){
+  faveList = JSON.parse(localStorage.getItem("fave-list"));
+
+  for (var i = 0; i < faveList.length; i++) {
+    var item = faveList[i];
+          var animalDiv = $("<div>");
+          animalDiv.addClass("card float-left col-md-3 mx-1 mt-1 h-25");
+
+          var p = $("<p>");
+          p.text("Rating: " + faveList[i].rating);
+
+          var f = $("<a>");
+          f.text("Remove from favorites")
+          f.addClass("text-secondary")
+          f.addClass("unfave")
+
+          var animalImage = $("<img>");
+
+          animalImage.attr("src", faveList[i].src);
+          animalImage.attr("data-still", faveList[i].datastill)
+          animalImage.attr("data-animate", faveList[i].dataanimate)
+          animalImage.attr("data-state", faveList[i].datastate)
+          animalImage.attr("data-rating", faveList[i].rating)
+          animalImage.addClass("pic img-fluid");
+          animalDiv.append(animalImage);
+          animalDiv.append(p);
+          animalDiv.append(f);
+
+          $("#gifs-appear-here").prepend(animalDiv);
+  }
+
+}
 
 function renderButtons() {
 
@@ -53,6 +89,21 @@ $("#search").on("click", function() {
 
 });
 
+function addtoFavorites() {
+
+  var fav = {
+    src: $(this).attr("src"),
+    datastill: $(this).attr("data-still"),
+    dataanimate: $(this).attr("data-animate"),
+    datastate: $(this).attr("data-still"),
+    rating: $(this).attr("data-rating")
+  }
+
+  faveList.push(fav)
+  localStorage.setItem("fave-list", JSON.stringify(faveList));
+  console.log(faveList)
+
+}
 
 function showAnimalGIFs() {
   console.log(animalList)
@@ -84,6 +135,11 @@ console.log(queryURL);
           f.text("Add to favorites")
           f.addClass("text-primary")
           f.addClass("favorite")
+          f.attr("src", item.images.fixed_height_still.url);
+          f.attr("data-still", item.images.fixed_height_still.url)
+          f.attr("data-animate", item.images.fixed_height.url)
+          f.attr("data-state", "still")
+          f.attr("data-rating", rate)
 
           var animalImage = $("<img>");
 
@@ -91,6 +147,7 @@ console.log(queryURL);
           animalImage.attr("data-still", item.images.fixed_height_still.url)
           animalImage.attr("data-animate", item.images.fixed_height.url)
           animalImage.attr("data-state", "still")
+          animalImage.attr("data-rating", rate)
           animalImage.addClass("pic img-fluid");
           animalDiv.append(animalImage);
           animalDiv.append(p);
@@ -105,5 +162,6 @@ console.log(queryURL);
 renderButtons();
 $(document).on("click", ".animal-btn", showAnimalGIFs);
 $(document).on("click", ".pic", animateGIF);
+$(document).on("click", ".favorite", addtoFavorites);
 
 
